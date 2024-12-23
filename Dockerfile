@@ -58,7 +58,7 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
 
 # Installing Java
 RUN curl -s "https://get.sdkman.io" | bash && \
-  source "$HOME/.sdkman/bin/sdkman-init.sh" && \
+  source "/root/.sdkman/bin/sdkman-init.sh" && \
   sdk install java 21.0.2-open
 
 # Installing MinIO CLI
