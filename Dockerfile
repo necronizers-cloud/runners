@@ -2,7 +2,7 @@
 FROM ubuntu:24.04
 
 # Runner version to be used.
-ARG RUNNER_VERSION="2.320.0"
+ARG RUNNER_VERSION="2.321.0"
 
 # Accept default answers for all commands
 ENV DEBIAN_FRONTEND=noninteractive
@@ -11,12 +11,12 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV GH_ORG="photoatom"
 
 # Update and upgrade repositories and create user docker
-RUN apt-get update -y && \
-  apt-get upgrade -y && \
+RUN apt update -y && \
+  apt upgrade -y && \
   useradd -m docker
 
 # Install required packages
-RUN apt-get install -y --no-install-recommends \
+RUN apt install -y --no-install-recommends \
   curl \
   nodejs \
   wget \
@@ -29,15 +29,16 @@ RUN apt-get install -y --no-install-recommends \
   libffi-dev \
   apt-transport-https \
   ca-certificates \
-  gnupg
+  gnupg \
+  openjdk-21-jdk
 
 # Installing kubectl
 RUN curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg && \
   chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg && \
   echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /' | tee /etc/apt/sources.list.d/kubernetes.list && \
   chmod 644 /etc/apt/sources.list.d/kubernetes.list && \
-  apt-get update && \
-  apt-get install -y kubectl
+  apt update && \
+  apt install -y kubectl
 
 # Installing the CNPG Plugin
 RUN wget https://github.com/cloudnative-pg/cloudnative-pg/releases/download/v1.24.0/kubectl-cnpg_1.24.0_linux_x86_64.deb  && \
@@ -53,13 +54,8 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
   deb-src [signed-by=/etc/apt/keyrings/opentofu.gpg,/etc/apt/keyrings/opentofu-repo.gpg] https://packages.opentofu.org/opentofu/tofu/any/ any main" | \
   tee /etc/apt/sources.list.d/opentofu.list > /dev/null \
   chmod a+r /etc/apt/sources.list.d/opentofu.list && \
-  apt-get update && \
-  apt-get install -y tofu
-
-# Installing Java
-RUN curl -s "https://get.sdkman.io" | sh && \
-  . "/root/.sdkman/bin/sdkman-init.sh" && \
-  sdk install java 21.0.2-open
+  apt update && \
+  apt install -y tofu
 
 # Installing MinIO CLI
 RUN curl https://dl.min.io/client/mc/release/linux-amd64/mc \
