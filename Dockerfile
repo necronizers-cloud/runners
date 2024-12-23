@@ -56,6 +56,11 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
   apt-get update && \
   apt-get install -y tofu
 
+# Installing Java
+RUN curl -s "https://get.sdkman.io" | bash && \
+  source "$HOME/.sdkman/bin/sdkman-init.sh" && \
+  sdk install java 21.0.2-open
+
 # Installing MinIO CLI
 RUN curl https://dl.min.io/client/mc/release/linux-amd64/mc \
   -o /usr/local/bin/mc && \
