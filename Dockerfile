@@ -57,7 +57,7 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
   apt-get install -y tofu
 
 # Installing Java
-RUN curl -s "https://get.sdkman.io" | bash && \
+RUN curl -s "https://get.sdkman.io" | sh && \
   . "/root/.sdkman/bin/sdkman-init.sh" && \
   sdk install java 21.0.2-open
 
