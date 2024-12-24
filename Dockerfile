@@ -8,7 +8,9 @@ ARG RUNNER_VERSION="2.321.0"
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Required Environment variables
-ENV GH_ORG="photoatom"
+ENV GH_ORG=""
+ENV GH_ORG_SHORTNAME=""
+ENV GH_TOKEN=""
 
 # Update and upgrade repositories and create user docker
 RUN apt update -y && \
