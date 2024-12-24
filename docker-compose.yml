@@ -1,6 +1,6 @@
 services:
   runners:
-    image: vhkhatri/runner:latest
+    image: vhkhatri/runner:0.1.2-dev
     env_file:
       - runner.env
     networks:
@@ -8,6 +8,6 @@ services:
 
 networks:
   k3d_network:
-    name: k3d-photoatom
+    name: k3d-cloud
     external: true
 
